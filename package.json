@@ -9,9 +9,10 @@
     "type": "git",
     "url": "git+https://github.com/gurs1kh/react-native-controlled-text-input.git"
   },
-  "packageManager": "yarn@3.6.1",
+  "packageManager": "yarn@1.22.22",
   "scripts": {
-    "example": "yarn workspace react-native-controlled-text-input-example",
+    "example": "yarn --cwd example",
+    "postinstall": "yarn example",
     "typecheck": "tsc",
     "lint": "eslint . -c .eslintrc.js --ext js,jsx,ts,tsx --max-warnings=0",
     "lint:fix": "eslint . -c .eslintrc.js --ext js,jsx,ts,tsx --fix",
@@ -50,9 +51,6 @@
     "react": "*",
     "react-native": "*"
   },
-  "workspaces": [
-    "example"
-  ],
   "files": [
     "src",
     "lib",
