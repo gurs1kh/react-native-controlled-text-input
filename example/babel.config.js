@@ -1,16 +1,20 @@
-const path = require('path');
-const { getConfig } = require('react-native-builder-bob/babel-config');
-const pkg = require('../package.json');
+/* globals require, module, __dirname */
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-require-imports */
 
-const root = path.resolve(__dirname, '..');
+const path = require('path')
+const { getConfig } = require('react-native-builder-bob/babel-config')
+const pkg = require('../package.json')
+
+const root = path.resolve(__dirname, '..')
 
 module.exports = function (api) {
-  api.cache(true);
+  api.cache(true)
 
   return getConfig(
     {
       presets: ['babel-preset-expo'],
     },
-    { root, pkg }
-  );
-};
+    { root, pkg },
+  )
+}
