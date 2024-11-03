@@ -11,14 +11,6 @@ npm install react-native-controlled-text-input
 ## Usage
 
 
-```js
-import { multiply } from 'react-native-controlled-text-input';
-
-// ...
-
-const result = await multiply(3, 7);
-```
-
 ## License
 
 MIT
