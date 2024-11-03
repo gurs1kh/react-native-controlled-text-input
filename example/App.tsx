@@ -1,3 +1,4 @@
+import { registerRootComponent } from 'expo'
 import { useState, useEffect } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { multiply } from 'react-native-controlled-text-input'
@@ -28,3 +29,5 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
 })
+
+registerRootComponent(App)

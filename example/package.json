@@ -1,7 +1,7 @@
 {
   "name": "react-native-controlled-text-input-example",
   "version": "1.0.0",
-  "main": "expo/AppEntry.js",
+  "main": "./App.tsx",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
