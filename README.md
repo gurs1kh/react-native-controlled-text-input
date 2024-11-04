@@ -36,12 +36,24 @@ yarn add react-native-controlled-text-input
 
 `react-native-controlled-text-input` is a drop-in replacement for React Native's `TextInput` component:
 ```diff
+import { useState } from 'react';
 - import { TextInput } from 'react-native'
 + import { TextInput } from 'react-native-controlled-text-input'
 
-export const Input = (props) => (
-  <TextInput {...props} />
-)
+let App = () => {
+  const [value, setValue] = useState('');
+
+  return (
+    <TextInput
+      style={{ marginTop: 200, padding: 100, fontSize: 20 }}
+      placeholder="Edit me"
+      onChangeText={text => setValue(text)}
+      value={value}
+    />
+  );
+};
+
+export default App;
 ```
 
 For a more explicit import, you can also use:
@@ -49,10 +61,21 @@ For a more explicit import, you can also use:
 - import { TextInput } from 'react-native'
 + import { ControlledTextInput } from 'react-native-controlled-text-input'
 
-export const Input = (props) => (
--  <TextInput {...props} />
-+  <ControlledTextInput {...props} />
-)
+let App = () => {
+  const [value, setValue] = useState('');
+
+  return (
+-    <TextInput
++    <ControlledTextInput
+      style={{ marginTop: 200, padding: 100, fontSize: 20 }}
+      placeholder="Edit me"
+      onChangeText={text => setValue(text)}
+      value={value}
+    />
+  );
+};
+
+export default App;
 ```
 
 All props and methods are the same as [TextInput](https://reactnative.dev/docs/textinput) 
