@@ -1,7 +1,7 @@
 {
   "name": "react-native-controlled-text-input",
   "description": "A performant controlled text input for React Native",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Manvir Singh",
   "license": "MIT",
   "homepage": "https://github.com/gurs1kh/react-native-controlled-text-input",
