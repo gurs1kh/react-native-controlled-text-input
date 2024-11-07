@@ -49,8 +49,9 @@ export class ControlledTextInputBase extends React.Component<ControlledTextInput
       if (this.callbackProps[key]) return
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      this.callbackProps[key] = callbackProps[key]
+      // @ts-expect-error
+      // wrapping the callback function for the cases where the callback prop changes
+      this.callbackProps[key] = (...params: unknown[]) => this.props[key]?.apply(null, params)
       hasChange = true
     })
     return hasChange
