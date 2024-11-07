@@ -1,12 +1,15 @@
 import React, { createRef } from 'react'
 import { TextInput, TextInputProps } from 'react-native'
 import { shallowEqualObjects } from 'shallow-equal'
+import { partitionCallbackProps, CallbackPropsOf } from './utils'
 
 type TextSelection = TextInputProps['selection']
 
 type ControlledTextInputProps = TextInputProps & {
   forwardedRef?: React.ForwardedRef<TextInput>
 }
+
+type CallbackProps = CallbackPropsOf<TextInputProps>
 
 export class ControlledTextInputBase extends React.Component<ControlledTextInputProps> {
   inputRef: React.MutableRefObject<TextInput | null>
@@ -16,7 +19,7 @@ export class ControlledTextInputBase extends React.Component<ControlledTextInput
   pendingTextChanges = 0
   pendingSelectionChanges = 0
 
-  callbackProps: Partial<TextInputProps> = {
+  callbackProps: CallbackProps = {
     onChange: (e) => {
       this.pendingTextChanges++
       this.textRef = e.nativeEvent.text
@@ -41,15 +44,13 @@ export class ControlledTextInputBase extends React.Component<ControlledTextInput
     this.selectionRef = selection ?? { start: 0, end: 0 }
   }
 
-  assignCallbackProps = (callbackProps: TextInputProps) => {
+  assignCallbackProps = (callbackProps: CallbackProps) => {
     let hasChange = false
-    const callbackKeys = Object.keys(callbackProps) as (keyof TextInputProps)[]
+    const callbackKeys = Object.keys(callbackProps) as (keyof CallbackProps)[]
 
     callbackKeys.forEach((key) => {
       if (this.callbackProps[key]) return
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       // wrapping the callback function for the cases where the callback prop changes
       this.callbackProps[key] = (...params: unknown[]) => this.props[key]?.apply(null, params)
       hasChange = true
@@ -114,18 +115,4 @@ export class ControlledTextInputBase extends React.Component<ControlledTextInput
   render() {
     return <TextInput ref={this.handleRef} {...this.passedProps()} {...this.callbackProps} />
   }
-}
-
-const partitionCallbackProps = <T extends object>(props: T) => {
-  const regularProps = {} as T
-  const callbackProps = {} as T
-  Object.keys(props).forEach((key) => {
-    if (typeof props[key] === 'function' && key.match(/on[A-Z]/)) {
-      callbackProps[key] = props[key]
-    } else {
-      regularProps[key] = props[key]
-    }
-  })
-
-  return { regularProps, callbackProps }
 }
